@@ -14,7 +14,8 @@ int main(int argc, char *argv[]) {
   
   // ------------- Levels in the multi-grid preconditioner  --------------- // 
   // Therefore the domain size we multiply by 2^(multigrid levels) to find the 
-  // size of the coarsest grid which the application takes as input.
+  // size of the coarsest grid which the application takes as input. Multi-
+  // grid preconditioner requirement
   int nl = 4;
   int opt;
 
@@ -28,19 +29,19 @@ int main(int argc, char *argv[]) {
     case 'y':
       nely_coarse = atoi(optarg);
       break;
-    case 'z':
+    case 'z':  
       nelz_coarse = atoi(optarg);
       break;
-    case 'r': // Radius
+    case 'r': // filter radius
       rmin = atof(optarg);
       break;
-    case 'v':
+    case 'v': // volume fraction
       volfrac = atof(optarg);
       break;
-    case 'i':
+    case 'i': // number of design iterations
       iters = atoi(optarg);
       break;
-    case 'l': // multi-grid preconditioner 
+    case 'l': // coarsen levels for multi-grid method
       nl = atoi(optarg);
       break;
     default:
@@ -49,6 +50,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  // Set real grid node
   int sizeIncr = 2;
   for (int i = 2; i < nl; i++)
     sizeIncr *= 2;
