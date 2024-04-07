@@ -11,12 +11,18 @@ int main(int argc, char *argv[]) {
   float volfrac = 0.2;
   float rmin = 1.5;
   int iters = 20;
+  
+  // ------------- Levels in the multi-grid preconditioner  --------------- // 
+  // Therefore the domain size we multiply by 2^(multigrid levels) to find the 
+  // size of the coarsest grid which the application takes as input.
   int nl = 4;
   int opt;
 
   while ((opt = getopt(argc, argv, "x:y:z:r:v:i:l:")) != -1) {
     switch (opt) {
-    case 'x':
+    // atoi - Argument TO Integer
+    // atof - Argument to Float
+    case 'x': 
       nelx_coarse = atoi(optarg);
       break;
     case 'y':
@@ -25,7 +31,7 @@ int main(int argc, char *argv[]) {
     case 'z':
       nelz_coarse = atoi(optarg);
       break;
-    case 'r':
+    case 'r': // Radius
       rmin = atof(optarg);
       break;
     case 'v':
@@ -34,7 +40,7 @@ int main(int argc, char *argv[]) {
     case 'i':
       iters = atoi(optarg);
       break;
-    case 'l':
+    case 'l': // multi-grid preconditioner 
       nl = atoi(optarg);
       break;
     default:

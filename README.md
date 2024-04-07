@@ -3,10 +3,10 @@
 This repository contains an implementation of a topology optimisation solver for linear elastic compliance minimisation in three dimensions. The implementation is matrix-free and based on OpenMP for multithreading and SIMD support.
 
 ## Compilation
-The code is tested with GCC 11.2 and the built-in compiler support for OpenMP. 
+The code is tested with GCC 11.2 & 11.4 and the built-in compiler support for OpenMP. 
 
 The following dependencies are also used
-| **Pachage**           | **Version** | **Installation** |
+| **Package**           | **Version** | **Installation** |
 | :---                  | :---        | :---           |
 | `SuiteSparse/CHOLMOD` | 5.10.1       | [See Github release notes](https://github.com/DrTimothyAldenDavis/SuiteSparse/) |
 
