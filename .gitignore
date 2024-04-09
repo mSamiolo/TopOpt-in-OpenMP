@@ -1,3 +1,7 @@
 top3d
 benchmark
 *.o
+*.cache
+Paper
+build
+.vscode
