@@ -20,11 +20,14 @@
 
 #define number_of_matrix_free_levels 2
 
-typedef double MTYPE; // matrix type, for stencils, coarse space and such.
-typedef float STYPE;  // state type, for displacements forces and such.
-typedef float CTYPE;  // cg type, for other arrays in the conjugate gradient
-                      // method for the fine level.
-typedef float DTYPE;  // design type, for element denseties, gradients and such.
+// matrix type, for stencils, coarse space and such.
+typedef double MTYPE; 
+// state type, for displacements forces and such.
+typedef float STYPE;  
+// cg type, for other arrays in the conjugate gradient method for the fine level.
+typedef float CTYPE;  
+// design type, for element densities, gradients and such.
+typedef float DTYPE;  
 
 struct FixedDofs {
   uint_fast32_t n;

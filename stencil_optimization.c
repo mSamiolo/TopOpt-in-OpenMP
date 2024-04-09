@@ -18,34 +18,38 @@ void top3dmgcg(const uint_fast32_t nelx, const uint_fast32_t nely,
                const uint_fast32_t nl, const int design_iters,
                const float cgtol, const uint_fast32_t cgmax) {
 
+  // ARGS 
+
   struct gridContext gridContext;
-  gridContext.E0 = 1;
-  gridContext.Emin = 1e-6;
-  gridContext.nu = 0.3;
-  gridContext.nelx = nelx;
-  gridContext.nely = nely;
-  gridContext.nelz = nelz;
-  gridContext.penal = 3; // dummy variable, does nothing
-
-  gridContext.elementSizeX = 0.5;
-  gridContext.elementSizeY = 0.5;
-  gridContext.elementSizeZ = 0.5;
-
-  initializeGridContext(&gridContext, nl);
-
-  const uint_fast64_t nelem = (gridContext.wrapx - 1) *
-                              (gridContext.wrapy - 1) * (gridContext.wrapz - 1);
+  double forceMagnitude = -1;
+  
+  // DATA
 
   CTYPE *F;
   STYPE *U;
+
+  // CODE 
+
+  initializeGridContext(&gridContext, nelx, nely, nelz, nl);
+  
+  const uint_fast64_t nelem = (gridContext.wrapx - 1) *
+                              (gridContext.wrapy - 1) * 
+                              (gridContext.wrapz - 1);
+
   allocateStateField(gridContext, 0, &F);
   allocateStateField_STYPE(gridContext, 0, &U);
 
   // for (int i = 1; i < gridContext.nelx + 2; i++)
   // for (int k = 1; k < gridContext.nelz + 2; k++)
-  double forceMagnitude = -1;
 
-  { // setup cantilever load
+  // -------------- Setup cantilever load -------------- //
+  //
+  //----------------------|
+  //                      |___
+  //                      |  |
+  //----------------------|  V
+  //
+  { 
     const int ny = nely + 1;
 
     const int k = 0;
@@ -55,6 +59,8 @@ void top3dmgcg(const uint_fast32_t nelx, const uint_fast32_t nely,
     const double center_x = (double)nelx;
     const double center_y = ((double)nely - 1.0) / 2.0;
 
+
+    // TO BE CHECKED - Set number of elements involved into the load application 
     int num_elements = 0;
     for (int i = 0; i < nelx; i++) {
       for (int j = 0; j < nely; j++) {
@@ -66,8 +72,8 @@ void top3dmgcg(const uint_fast32_t nelx, const uint_fast32_t nely,
         }
       }
     }
-
     double nodalForce = forceMagnitude / (4.0 * (double)num_elements);
+
     for (int i = 0; i < nelx; i++) {
       for (int j = 0; j < nely; j++) {
 

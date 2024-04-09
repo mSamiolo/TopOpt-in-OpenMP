@@ -815,7 +815,7 @@ void getComplianceAndSensetivity_halo(const struct gridContext gc,
         const uint_fast32_t elementIndex =
             i * (gc.wrapy - 1) * (gc.wrapz - 1) + k * (gc.wrapy - 1) + j;
 
-        // clocal = ulocal^T * ke * ulocal
+        // clocal = ulocal^T * K_e * ulocal
         MTYPE clocal = 0.0;
         for (int ii = 0; ii < 24; ii++) {
           for (int jj = 0; jj < 24; jj++) {

@@ -62,7 +62,21 @@ void setFixedDof_halo(struct gridContext *gc, const int l) {
   }
 }
 
-void initializeGridContext(struct gridContext *gc, const int nl) {
+void initializeGridContext(struct gridContext *gc, const uint_fast32_t nelx, 
+                           const uint_fast32_t nely, 
+                           const uint_fast32_t nelz, const int nl) {
+
+  (*gc).E0 = 1;
+  (*gc).Emin = 1e-6;
+  (*gc).nu = 0.3;
+  (*gc).nelx = nelx;
+  (*gc).nely = nely;
+  (*gc).nelz = nelz;
+  (*gc).penal = 3; // dummy variable, does nothing
+  (*gc).elementSizeX = 0.5;
+  (*gc).elementSizeY = 0.5;
+  (*gc).elementSizeZ = 0.5;
+
 
   const int paddingx =
       (STENCIL_SIZE_X - (((*gc).nelx + 1) % STENCIL_SIZE_X)) % STENCIL_SIZE_X;
